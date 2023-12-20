@@ -1,0 +1,44 @@
+sc-aXZVg sc-gEvEer cMtRut fteAEG sc-oqvosu-0 gNsPPb
+
+sc-aXZVg sc-gEvEer cMtRut fteAEG sc-oqvosu-0 gNsPPb
+↑概要書いてあるところのクラス
+
+
+sc-t0ugq4-2 gdDzte
+↑N予備校のアイコン(大きい)
+150x30
+
+sc-t0ugq4-2 hqpSjF
+↑N予備校のアイコン(小さい)
+30x30
+
+必要なドーナツグラフ
+
+進捗率
+動画数
+問題数
+動画時間
+
+その他必要なもの
+
+N予備校の動画があとどのぐらい残ってるか時間でわかりやすくなるよ
+とてもいいものだね
+
+進捗度はNプラスはカウントされない
+
+使用してるライブラリ
+
+Vue.js
+chart.js
+
+変数一覧
+get_html...N予備校のhtmlを取得
+概要の部分に埋め込むやつ
+embed_何か
+となっています。
+
+
+本当はこうしたい
+
+動画5個,やってるのは3個だよ
+ってまとめたい！
