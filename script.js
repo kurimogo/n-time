@@ -8,10 +8,12 @@ q  = {number:0, pass:0,fail:0}//急に雑になったけど問題数、やった
 //概要の部分を抜き取る関数
 function embed(){
   for(var embed_number = 0; embed_number < get_html.length; embed_number++){
-    if(get_html[embed_number].textContent == '概要' || '授業'){
+    if(get_html[embed_number].textContent == '概要'){
        embed_get = get_html[embed_number];
-    }
-  }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+    } else if(get_html[embed_number].textContent == '授業'){
+      embed_get = get_html[embed_number];
+   } 
+  }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 embed_decision = embed_get.parentNode.parentNode.lastElementChild;
 embed_decision.id = "domdom";
 }
@@ -28,7 +30,7 @@ embed_decision.id = "domdom";
  }
 
 //すごい演算組
-function li() {
+function hyper() {
 
 li_number = calculation_decision.childElementCount;//liの個数を調べる
 for_number = 0; 
@@ -104,7 +106,6 @@ if(search_type == "exercise-rounded"){
 }
 console.log(movie);
 console.log(n_movie);
-console.log(new_time);
 console.log(text);
 console.log(q);
 
@@ -118,6 +119,8 @@ async function get_element() {
   calculation();
 }
 
+//Bata版用システム
+
 window.onload = function(){
 //開始の合図(ロマンでプログラムは動く)
   console.log("[kurimogo式N予備校時間表示]それっぽい場所を検知しました。。\n[kurimogo式N予備校時間表示]時間表示を埋め込む場所があるか見つけてきます...");
@@ -125,7 +128,7 @@ window.onload = function(){
   //全HTMLを取得する
   get_html = document.querySelectorAll('*');
   get_element();
-  li();
+  hyper();
 
  console.log(embed_decision);
  console.log(calculation_decision);
@@ -142,4 +145,5 @@ function notClass(){
 function pass(){
   console.log("[kurimogo式N予備校時間表示]なんかいけた");
 }
+
 }

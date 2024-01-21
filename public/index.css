@@ -25,15 +25,21 @@
     height: 200px;
     width: 170px;
     margin: 0px;
+    border-right-style: solid;
+    border-width: 3px;
+    border-color: #e9e9e9;
 }
 
 /*下側の部分*/
 #doughnut_bottom {
   position: relative;
+  bottom: 3px;
   left: 0px;
   height: 100px;
   width: 100%;
-  
+  border-top-style: solid;
+  border-width: 3px;
+  border-color: #e9e9e9;
 }
 
 #progress {
@@ -50,6 +56,7 @@
     margin-bottom: 30px;
     width: 290px;
     height: 140px;
+    
   }
   /*右側のドーナッツ型のグラフの文字*/
    .text_center {
@@ -77,6 +84,9 @@
     bottom: 0px;
     width: 140px;
     height: 100px;
+    border-right-style: solid;
+    border-width: 3px;
+    border-color: #e9e9e9;
   }
 
 
@@ -85,6 +95,9 @@
     left: 140px;
     width: 140px;
     height: 100px;
+    border-right-style: solid;
+    border-width: 3px;
+    border-color: #e9e9e9;
   }
   #n_document {
     position: relative;
