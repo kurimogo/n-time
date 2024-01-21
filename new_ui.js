@@ -1,0 +1,2 @@
+dom = document.getElementById('test')
+
