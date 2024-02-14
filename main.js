@@ -5,26 +5,38 @@ const list = [
     {number:0, pass:0,fail:0}//問題関連のものであり、numberが数、passが正答、failが間違えたものである。
 ];
 
-embed_get = {html:"",type:0}//こいつは埋め込む場所がきろくされるやつだぜtypeの0がnull、1が概要、2が授業だ
 
 const observer = new MutationObserver(function () {calculation();});
 observer.observe(document.body, { childList: true }); // 監視開始
+let calculation_variables;
 
-//概要の部分を抜き取る関数
 function calculation(){
-  for(let embed_number = 0; embed_number < document.querySelectorAll('*').length; embed_number++){
-    switch(document.querySelectorAll('*')[embed_number].textContent){
-        case '概要':
-        
-        break;
-        case '授業':
-        
-        break;
-        case '教材':
-            calculation_variables = document.querySelectorAll('*')[embed_number].parentNode.parentNode.getElementsByTagName('ul')[0];
-        break;
-    }};
- 
+    get_dom = [];
+    already_get_dom = false;
+    get_html = document.querySelectorAll('*');
+    for(var embed_number = 0; embed_number < get_html.length; embed_number++){
+        if(get_html[embed_number].textContent == '概要' || get_html[embed_number].textContent == '教材' || get_html[embed_number].textContent == '授業'){
+            switch(get_html[embed_number].textContent){
+            case '教材':
+                console.log(get_html[embed_number].parentNode.lastElementChild);
+                embed(get_html[embed_number].parentNode.lastElementChild);
+                break;
+            case '概要':
+                console.log(get_html[embed_number].childElementCount);
+                console.log(get_html[embed_number]);
+                if(already_get_dom == false && get_html[embed_number].childElementCount == 0){
+                console.log(get_html[embed_number].parentNode.parentNode.lastElementChild);
+                dom(get_html[embed_number].parentNode.parentNode.lastElementChild);
+                already_get_dom = true;
+                }
+                break;
+                }
+            }
+        }
+};
+    //計算部分
+
+ function embed(calculation_variables){
     for (let for_number = 0; for_number < calculation_variables.childElementCount; for_number++){
     
     search_right = calculation_variables.children[for_number].lastElementChild.lastElementChild;//右側の時間とか問題数とかのやつを抜き取る一歩手前
@@ -51,7 +63,7 @@ function calculation(){
 
         case 'movie-rounded-plus"'://Nプラスの動画
             new_time = search_mini.split(":");//まず文字を分と秒に分ける。
-            list[1].time =list[1].time +  (Number(new_time[0]) * 60 +  Number(new_time[1]));//分を秒に分ける。
+            list[1].time += (Number(new_time[0]) * 60 +  Number(new_time[1]));//分を秒に分ける。
 
             list[1].number++;//動画数を1足す。
             if(search_style.indexOf("color: rgb(0, 197, 65)") >= 0){
@@ -79,9 +91,82 @@ function calculation(){
                 list[3].fail++;//もしアイコンが赤色ならfailを1増やす。
             }
         break;
-    }
-    }
-
+    }}
     console.log(list);
     }
-    
+
+function dom(get_dom){
+    new_dom = document.getElementById('Ntime_div')
+    if(new_dom != null){
+        new_dom.remove();
+    }
+    get_dom.innerHTML += ` <div id="Ntime_div">
+    <div id="Ntime_top_div">
+      <div class="new_box">
+        <canvas id='progress_dom' width="400" height="200"></canvas>
+      <p>進捗率:100%</p>
+      </div>
+    </div>
+  <div id="Ntime_bottom_div">
+    <div id="Ntime_div_left">
+      <div class="new_box">
+        <canvas id="movie_time" width="250" height="125"></canvas>
+        <p>動画視聴時間<br><span id='watch'></span>/<span id='time'></span></p>
+      </div>
+      <div class="new_box">
+        <canvas id="n_movie_time" width="250" height="125"></canvas>
+        <p>Nプラス視聴時間<br>4時間32分/6時間55分</p>
+      </div>
+    </div>
+    <div id="Ntime_div_right">
+      <div class="new_box">
+        <canvas id="movie_number" width="150" height="75"></canvas>
+        <p>動画数<br>60個(20個)/120個</p>
+      </div>
+      <div class="new_box">
+        <canvas id="n_movie_number" width="150" height="75"></canvas>
+        <p>Nプラスの動画数<br>60個(20個)/120個</p>
+      </div>
+      <div class="new_box">
+        <canvas id="document_number" width="150" height="75"></canvas>
+        <p>資料の数<br>60個(20個)/120個</p>
+      </div>
+      <div class="new_box">
+        <canvas id="question_number" width="150" height="75"></canvas>
+        <p>問題の数<br>60個(20個)/120個</p>
+      </div>
+    </div>
+  </div>
+  </div>`
+  document.getElementById('watch').innerHTML = list[0].watch;
+  document.getElementById('time').innerHTML = (list[0].time/3600)+ '時間';
+  dom_embed(document.getElementById('n_movie_time'), 125, 15);
+  dom_embed(document.getElementById('movie_time'), 125, 15);
+  dom_embed(document.getElementById('n_movie_number'), 75, 5);
+  dom_embed( document.getElementById('movie_number'), 75, 5);
+  dom_embed(document.getElementById('document_number'), 75, 5);
+  dom_embed(document.getElementById('question_number'), 75, 5);
+  dom_embed(document.getElementById('progress_dom'), 200, 20);
+}
+
+function dom_embed(get_domid, size, line){
+    const get_dom = get_domid.getContext('2d'); // コンテキストの取得
+/* 円の描画 */
+get_dom.beginPath(); // パスの初期化
+get_dom.arc(size, size, size/1.2, (Math.PI/180)*180, ( Math.PI/180)*280); // (100, 50)の位置に半径30pxの円
+get_dom.strokeStyle = 'rgb(0, 197, 65)';
+get_dom.lineWidth = line ;
+get_dom.stroke() ;
+
+get_dom.beginPath(); // パスの初期化
+get_dom.arc(size, size, size/1.2, (Math.PI/180)*280, ( Math.PI/180)*300); // (100, 50)の位置に半径30pxの円
+get_dom.strokeStyle = 'rgb(245, 81, 81)';
+get_dom.lineWidth = line ;
+get_dom.stroke() ;
+
+get_dom.beginPath(); // パスの初期化
+get_dom.arc(size, size, size/1.2, (Math.PI/180)*300, ( Math.PI/180)*360); // (100, 50)の位置に半径30pxの円
+get_dom.strokeStyle = 'rgb(179, 179, 179)';
+get_dom.lineWidth = line ;
+get_dom.stroke() ;
+}

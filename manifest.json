@@ -6,7 +6,8 @@
     "content_scripts": [
         {
             "matches": ["https://www.nnn.ed.nico/courses/*/chapters/*"],
-            "js": ["main.js"]
+            "js": ["main.js"],
+            "css": ["index.css"]
         }
     ]
 }

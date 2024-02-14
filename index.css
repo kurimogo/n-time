@@ -1,106 +1,56 @@
-/* 全体 */
-#doughnut {
-    position: relative;
-    margin-top: 30px;
-    width: 460px;
-    height: 500px;
-    border: solid;
-    border-width: 5px;
-    border-color: #e9e9e9;
+#Ntime_div {
+  width: 400px;
+  border: 2px solid #a2a2a2;
+  margin: auto;
+  text-align: center;
 }
 
-/*上の部分*/
-#doughnut_top {
+#Ntime_div canvas {
+  vertical-align: bottom;
+}
+
+#Ntime_top_div {
+  font-size: 30px;
+  padding-bottom: 10px;
+}
+
+.new_box {
   position: relative;
-    width: 100%;
-    height: 200px;
-    border-bottom-style: solid;
-    border-width: 3px;
-    border-color: #e9e9e9;
-}
-/*右側の部分*/
-#doughnut_right {
-    position: relative;
-    right: 0px;
-    height: 200px;
-    width: 170px;
-    margin: 0px;
-    border-right-style: solid;
-    border-width: 3px;
-    border-color: #e9e9e9;
 }
 
-/*下側の部分*/
-#doughnut_bottom {
-  position: relative;
-  bottom: 3px;
-  left: 0px;
-  height: 100px;
-  width: 100%;
-  border-top-style: solid;
-  border-width: 3px;
-  border-color: #e9e9e9;
+.new_box p {
+  margin: 0px;
+  width: 70%;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+transform: translate(-50%, -10%);
 }
 
-#progress {
-    position: relative;
-    width: 350px;
-    height: 175px;
-    top: 12.5px;
-    left: 55px;
-  }
 
-#time {
-    position: absolute;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    width: 290px;
-    height: 140px;
-    
-  }
-  /*右側のドーナッツ型のグラフの文字*/
-   .text_center {
-    margin: 0px;
-    position: absolute;
-    top: 65%;
-    left: 50%;
-   transform: translate(-50%, -50%); 
-    text-align: center;
-  }
-  .doughnut_center_bottom {
-    margin-top: 15px;
-    margin-bottom: 15px;
-  }
+#Ntime_bottom_div {
+  display: flex;
+}
 
-  .doughnut_center {
-    margin-left: 15px;
-    margin-right: 15px;
-    position: absolute;
-    bottom: 0%;
-  }
+#Ntime_bottom_div canvas {
+  border-top: 2px solid #a2a2a2;
+  padding: 0px;
+}
 
-  #movie {
-    position: absolute;
-    bottom: 0px;
-    width: 140px;
-    height: 100px;
-    border-right-style: solid;
-    border-width: 3px;
-    border-color: #e9e9e9;
-  }
+#Ntime_div_left {
+  width: 250px;
+  border-right: 2px solid #a2a2a2;
+}
 
+#Ntime_div_left canvas {
+  padding-top: 23.5px;
+  padding-bottom: 23.5px;
+}
 
-  #n_movie {
-    position: absolute;
-    left: 140px;
-    width: 140px;
-    height: 100px;
-    border-right-style: solid;
-    border-width: 3px;
-    border-color: #e9e9e9;
-  }
-  #n_document {
-    position: relative;
-    width: 100%;
-    height: 100px;
-  }
+#Ntime_div_right {
+  font-size: 10px;
+}
+#Ntime_div_right canvas {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
