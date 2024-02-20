@@ -27,7 +27,7 @@ N/S高生、教職員の皆様改めてありがとうございます。引き�
 ### インストール方法
 ダウンロードリンクに記載
 
-[https://github.com/kurimogo/n-time/releases/latest](最新のダウンロードファイル)
+[https://github.com/kurimogo/n-time/releases/tag/V1.0.0](最新のダウンロードファイル)
 
 ### 使い方
 インストールができたら放置で問題なし！試しにN予備校を開いて、各教科の右側にある概要・授業を見てみよう
