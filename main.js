@@ -12,6 +12,7 @@ function calculation(){
     list.push({number:0, pass:0, fail:0,time:0,watch:0});//Nプラス関連のものであり、numberが動画数、passが正答した動画数、failが間違えた動画数、timeが合計視聴時間, watchが今みた時間である。
     list.push({number:0, pass:0,fail:0});//課外授業に主に出てくるドキュメント(アイコンが紙のやつ)関連のものであり、numberが数、passが自信のあるもの、failが自信がないものである。
     list.push({number:0, pass:0,fail:0});//問題関連のものであり、numberが数、passが正答、failが間違えたものである。
+    list.push({number:0, pass:0,fail:0});//合計の部分であり、numberが数、passが正答、failが間違えたものである。
     already_get_dom = false;
     get_html = document.querySelectorAll('*');
     for(var embed_number = 0; embed_number < get_html.length; embed_number++){
@@ -21,10 +22,10 @@ function calculation(){
                 embed(get_html[embed_number].parentNode.parentNode.lastElementChild);
                 break;
             case '概要':
-                dom(get_html[embed_number].parentNode.parentNode.lastElementChild);
+                dom(get_html[embed_number].parentNode.parentNode.lastElementChild, 'overview');
                 break;
                 case '授業':
-                  dom(get_html[embed_number].parentNode.parentNode.lastElementChild);
+                  dom(get_html[embed_number].parentNode.parentNode.lastElementChild, 'class');
                   break;
                 }
             }
@@ -51,11 +52,14 @@ function calculation(){
             list[0].time =list[0].time +  (Number(new_time[0]) * 60 +  Number(new_time[1]));//分を秒に分ける。
 
             list[0].number++;//動画数を1足す。
+            list[4].number++;//合計数を1足す。
             if(search_style.indexOf("color: rgb(0, 197, 65)") >= 0){
                 list[0].pass++;//もしアイコンが緑色ならpassを1増やす。
+                list[4].pass++;//もしアイコンが緑色ならpassを1増やす。
                 list[0].watch += (Number(new_time[0]) * 60 +  Number(new_time[1]));
             }else if(search_style.indexOf("rgb(245, 81, 81)") >= 0){
                 list[0].fail++;//もしアイコンが赤色ならfailを1増やす。
+                list[4].fail++;//もしアイコンが緑色ならpassを1増やす。
             }
         break;
 
@@ -65,29 +69,38 @@ function calculation(){
             list[1].time += (Number(new_time[0]) * 60 +  Number(new_time[1]));//分を秒に分ける。
 
             list[1].number++;//動画数を1足す。
+            list[4].number++;//合計数を1足す。
             if(search_style.indexOf("color: rgb(0, 197, 65)") >= 0){
                 list[1].pass++;//もしアイコンが緑色ならpassを1増やす。
+                list[4].pass++;//もしアイコンが緑色ならpassを1増やす。
                 list[1].watch += (Number(new_time[0]) * 60 +  Number(new_time[1]));
             }else if(search_style.indexOf("rgb(245, 81, 81)") >= 0){
                 list[1].fail++;//もしアイコンが赤色ならfailを1増やす。
+                list[4].fail++;//もしアイコンが緑色ならpassを1増やす。
             }
         break;
 
         case 'text-rounded'://資料みたいなやつ
             list[2].number++;//合計数を1足す。
+            list[4].number++;//合計数を1足す。
             if(search_style.indexOf("color: rgb(0, 197, 65)") >= 0){
                 list[2].pass++;//もしアイコンが緑色ならpassを1増やす。
+                list[4].pass++;//もしアイコンが緑色ならpassを1増やす。
             }else if(search_style.indexOf("rgb(245, 81, 81)") >= 0){
                 list[2].fail++;//もしアイコンが赤色ならfailを1増やす。
+                list[4].fail++;//もしアイコンが緑色ならpassを1増やす。
             }
         break;
 
         case 'exercise-rounded'://問題
             list[3].number++;//合計数を1足す。
+            list[4].number++;//合計数を1足す。
             if(search_style.indexOf("color: rgb(0, 197, 65)") >= 0){
                 list[3].pass++;//もしアイコンが緑色ならpassを1増やす。
+                list[4].pass++;//もしアイコンが緑色ならpassを1増やす。
             }else if(search_style.indexOf("rgb(245, 81, 81)") >= 0){
                 list[3].fail++;//もしアイコンが赤色ならfailを1増やす。
+                list[4].fail++;//もしアイコンが緑色ならpassを1増やす。
             }
         break;
     }}
@@ -95,16 +108,23 @@ function calculation(){
     console.log(list);
     }
 
-function dom(get_dom){
-    new_dom = document.getElementById('Ntime_div')
+function dom(get_dom, type){
+   new_dom = document.getElementById('Ntime_div')
+   let class_dom;
     if(new_dom != null){
         new_dom.remove();
+    }
+    if (type == 'class'){
+      class_dom = get_dom.innerHTML;
+      get_dom.innerHTML = ''
+      get_dom.id = 'new_Ntime_div';
+      get_dom.classList.remove(...get_dom.classList);
     }
     get_dom.innerHTML += ` <div id="Ntime_div">
     <div id="Ntime_top_div">
       <div class="new_box">
         <canvas id='progress_dom' width="400" height="200"></canvas>
-      <p>進捗率は上を見て</p>
+      <p>進捗度:<sapn id='progress'></sapn></p>
       </div>
     </div>
   <div id="Ntime_bottom_div">
@@ -138,6 +158,9 @@ function dom(get_dom){
     </div>
   </div>
   </div>`
+  if (type == 'class'){
+    get_dom.innerHTML += class_dom;
+  }
   /* 
   movie_dom:動画視聴時間を埋め込むところ
   N_movie_dom:Nプラス視聴時間を埋め込むところ
@@ -173,13 +196,16 @@ function dom(get_dom){
  }else{
   document.getElementById('question_number_dom').innerHTML = '0個(0個)/0個';
  }
+
+ document.getElementById('progress').innerHTML = Math.floor((list[4].pass/list[4].number)*100) + '%';
+
   dom_embed(document.getElementById('movie_time'), 125, 15, 0, 'time');
   dom_embed(document.getElementById('n_movie_time'), 125, 15, 1, 'time');
   dom_embed(document.getElementById('movie_number'), 75, 5, 0);
   dom_embed(document.getElementById('n_movie_number'), 75, 5, 1);
   dom_embed(document.getElementById('document_number'), 75, 5, 2);
   dom_embed(document.getElementById('question_number'), 75, 5, 3);
-  //dom_embed(document.getElementById('progress_dom'), 200, 20);
+  dom_embed(document.getElementById('progress_dom'), 200, 20, 4);
 }
 
 function dom_embed(get_domid, size, line, list_number, type){
