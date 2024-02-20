@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "kurimogo式N予備校時間表示",
-    "version": "",
+    "version": "1.0.0",
     "description": "N予備校の必修科目の動画の合計時間と、今何時間やったかわかる便利な拡張機能。\n N/S高等学校の職員に許可を取ってます。",
     "content_scripts": [
         {
