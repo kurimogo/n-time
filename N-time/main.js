@@ -1,6 +1,5 @@
 const list = [];
 
-
 const observer = new MutationObserver(function () {calculation();});
 observer.observe(document.body, { childList: true }); // 監視開始
 let calculation_variables;
@@ -13,6 +12,7 @@ function calculation(){
     list.push({number:0, pass:0,fail:0});//課外授業に主に出てくるドキュメント(アイコンが紙のやつ)関連のものであり、numberが数、passが自信のあるもの、failが自信がないものである。
     list.push({number:0, pass:0,fail:0});//問題関連のものであり、numberが数、passが正答、failが間違えたものである。
     list.push({number:0, pass:0,fail:0});//合計の部分であり、numberが数、passが正答、failが間違えたものである。
+
     already_get_dom = false;
     get_html = document.querySelectorAll('*');
     for(var embed_number = 0; embed_number < get_html.length; embed_number++){
@@ -24,9 +24,9 @@ function calculation(){
             case '概要':
                 dom(get_html[embed_number].parentNode.parentNode.lastElementChild, 'overview');
                 break;
-                case '授業':
+            case '授業':
                   dom(get_html[embed_number].parentNode.parentNode.lastElementChild, 'class');
-                  break;
+                break;
                 }
             }
         }
